@@ -35,6 +35,18 @@ This GRPO implementation is adapted for standard RL environments and differs fro
     3.  Normalize these collected G_t values using their group-wide mean and standard deviation. These normalized values serve as the advantages in the loss function.
 *   **Rationale:** This advantage calculation method uses normalized returns-to-go, a standard technique in RL. It avoids issues encountered when trying to directly apply the paper's "Process Supervision" reward normalization in environments like CartPole (where constant rewards become zero after normalization).
 
+      
+### GRPO Modifications
+
+This GRPO implementation removes certain features specific to the DeepSeek paper's LLM context to apply it to standard RL environments:
+
+*   **Loss Averaging:** The surrogate loss and KL divergence terms are averaged over *all steps* concatenated from the group's rollouts. The `(1 / |rollout_length|)` weighting per rollout described in the paper's formula is *not* applied. This simplification treats each transition step equally, as is common in many policy gradient implementations.
+*   **Advantage Calculation:** The paper's "Process Supervision" advantage calculation (involving pre-normalized rewards) is replaced with a standard RL approach using normalized returns-to-go:
+    1.  Compute raw discounted returns-to-go (G_t = Σ γ^k * r_{t+k}) for each step within its rollout.
+    2.  Collect *all* G_t values from the entire group.
+    3.  Normalize these collected G_t values using their group-wide mean and standard deviation. These normalized values serve as the advantages (`Â_i,t`) in the loss function.
+*   **Rationale for Advantage Change:** This standard advantage calculation (using normalized returns-to-go) was used because the paper's specific "Process Supervision" method, which involves normalizing individual step rewards *before* calculating advantages, appears highly tailored to their LLM step-verification training context. In standard RL environments, this approach is non-standard because the implicit reward signal guiding the training updates would differ significantly from the actual cumulative (discounted) reward that we aim to maximize.
+
 ## Implementation Notes
 
 *   With these modifications, this GRPO implementation resembles a PPO variant that omits the critic network and uses group-normalized returns-to-go directly as advantages, alongside the KL penalty against the previous policy iteration.
