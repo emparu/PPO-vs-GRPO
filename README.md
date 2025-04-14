@@ -52,3 +52,12 @@ This GRPO implementation is adapted for standard RL environments and differs fro
 The results in these standard RL benchmarks, particularly LunarLander, suggest that GRPO, adapted in this manner, may be less effective than actor-critic PPO at navigating certain optimization challenges. Specifically, it appears to struggle with transitioning from moderately successful but inefficient policies (the ~150 reward plateau) to highly optimized, efficient solutions, even though it can maintain such solutions once found.
 
 This contrasts with GRPO's reported success fine-tuning LLMs (DeepSeekMath), which may rely more on refinement of existing skills. LunarLander, however, requires exploring and discovering fundamentally new, efficient strategies. These results hint that GRPO might excel more at refinement than complex exploration, but this observation is preliminary based on these specific RL tests.
+
+## References and Acknowledgements
+
+*   The Group Relative Policy Optimization (GRPO) algorithm and its application to LLMs are detailed in:
+    *   Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang, H., Zhang, M., Li, Y.K., Wu, Y., & Guo, D. (2024). *DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models*. arXiv:2402.03300v3 [cs.CL]. [https://arxiv.org/abs/2402.03300](https://arxiv.org/abs/2402.03300)
+*   The Proximal Policy Optimization (PPO) algorithm is described in:
+    *   Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). *Proximal Policy Optimization Algorithms*. arXiv:1707.06347v2 [cs.LG]. [https://arxiv.org/abs/1707.06347](https://arxiv.org/abs/1707.06347)
+*   The base PPO implementation used in this repository was adapted from the code provided by FareedKhan-dev:
+    *   [https://github.com/FareedKhan-dev/all-rl-algorithms](https://github.com/FareedKhan-dev/all-rl-algorithms)
