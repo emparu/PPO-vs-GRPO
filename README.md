@@ -40,8 +40,8 @@ This GRPO implementation is adapted for standard RL environments and differs fro
 *   With these modifications, this GRPO implementation resembles a PPO variant that omits the critic network and uses group-normalized returns-to-go directly as advantages, alongside the KL penalty against the previous policy iteration.
 *   The KL penalty calculation uses a reference model (`actor_ref`) which is a snapshot of the policy before the update epochs begin. While the *log probabilities* from the rollout phase (`log_probs_old`) could theoretically be reused, the current code uses `actor_ref` for recalculation within the update loop for structural consistency (this is slightly less computationally efficient but functionally equivalent for the purpose of the KL term).
 
-*Note: You can run these notebooks on Kaggle, Example:
-*[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/emanuelruzak/grpo-cartpole) (GRPO CartPole version).
+* Note: You can run these notebooks on Kaggle, Example:
+* [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/emanuelruzak/grpo-cartpole) (GRPO CartPole version).
 
 ## Results and Discussion
 
